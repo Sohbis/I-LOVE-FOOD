@@ -15,23 +15,92 @@
         </p>
       </md-card-content>
       <md-card-actions>
+        <button md-button [routerLink]="['/dishdetail', prev]">
+          <span class="fa fa-chevron-left fa-lg"></span>
+        </button>
+        <button md-button (click)="goBack()">BACK</button>
         <button md-button>LIKE</button>
         <button md-button>SHARE</button>
+        <span class="flex-spacer"></span>
+        <button md-button [routerLink]="['/dishdetail', next]">
+          <span class="fa fa-chevron-right fa-lg"></span>
+        </button>
       </md-card-actions>
     </md-card>
   </div>
 
 
-
   <div fxFlex="40" *ngIf="dish">
+
     <md-list fxFlex>
+
       <h3>Comments</h3>
+
       <md-list-item *ngFor="let com of dish.comments">
-       <p md-line>{{com.comment}}</p>
+
+        <p md-line>{{com.comment}}</p>
+
         <p md-line> {{com.rating}} Stars </p>
+
         <p md-line>--{{com.author}},{{com.date |date}} </p>
+
       </md-list-item>
+
+
+
+
+
+      <md-list-item *ngIf="!isError">
+
+        <p md-line>{{comment}}</p>
+
+        <p md-line> {{value}} Stars </p>
+
+        <p md-line>--{{author}},{{date |date}} </p>
+
+      </md-list-item>
+
+
+
+
+
+      <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+        <p>
+          <md-input-container class="half-width" dividerColor="{{(formErrors.author) ? 'warn' : 'primary'}}">
+            <input mdInput [(ngModel)]="author" formControlName="author" placeholder="Name" type="text" required>
+            <md-hint>
+              <span [hidden]="!(formErrors.author)">
+                {{formErrors.author}}</span>
+            </md-hint>
+          </md-input-container>
+
+        </p>
+
+        <p>
+          <md-slider formControlName="rating" [max]="max" [min]="min" [step]="step" [thumb-label]="thumbLabel" [tick-interval]="tickInterval"
+            [(ngModel)]="value" [vertical]="vertical">
+          </md-slider>
+        </p>
+        <p>
+          <md-input-container class="full-width" dividerColor="{{(formErrors.comment) ? 'warn' : 'primary'}}">
+            <textarea mdInput [(ngModel)]="comment" formControlName="comment" placeholder="Comment" rows=12 required></textarea>
+            <md-hint>
+              <span [hidden]="!(formErrors.comment)">
+                {{formErrors.comment}}</span>
+            </md-hint>
+          </md-input-container>
+
+        </p>
+        <button type="submit" md-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
+      </form>
     </md-list>
+
   </div>
+
+  <div [hidden]="dish">
+    <md-spinner></md-spinner>
+    <h4>Loading . . . Please Wait</h4>
+  </div>
+
 
 </div>

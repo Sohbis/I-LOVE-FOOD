@@ -6,6 +6,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {  FormsModule  } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 import 'hammerjs';
 import { AppComponent } from './app.component';
@@ -19,7 +22,9 @@ import { ContactComponent } from './contact/contact.component';
 
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
-
+import { LeaderService} from './services/leader.service';
+import { LoginComponent } from './login/login.component';
+import { enterView } from '@angular/core/src/render3/instructions';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +34,8 @@ import { PromotionService } from './services/promotion.service';
     FooterComponent,
     AboutComponent,
     HomeComponent,
-    ContactComponent
+    ContactComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,9 +43,14 @@ import { PromotionService } from './services/promotion.service';
     HttpModule,
     MaterialModule,
     FlexLayoutModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
-  providers: [DishService, PromotionService ],
+  entryComponents: [
+    LoginComponent
+  ],
+  providers: [DishService, PromotionService, LeaderService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
