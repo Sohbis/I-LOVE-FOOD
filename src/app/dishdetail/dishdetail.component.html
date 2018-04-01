@@ -64,7 +64,7 @@
 
 
 
-      <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+      <form novalidate [formGroup]="commentForm" (ngSubmit)="onSubmit()">
         <p>
           <md-input-container class="half-width" dividerColor="{{(formErrors.author) ? 'warn' : 'primary'}}">
             <input mdInput [(ngModel)]="author" formControlName="author" placeholder="Name" type="text" required>
@@ -91,13 +91,13 @@
           </md-input-container>
 
         </p>
-        <button type="submit" md-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
+        <button type="submit" md-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
       </form>
     </md-list>
 
   </div>
 
-  <div [hidden]="dishes || errMess">
+  <div [hidden]="dish || errMess">
     <md-spinner></md-spinner>
     <h4>Loading . . . Please Wait</h4>
   </div>

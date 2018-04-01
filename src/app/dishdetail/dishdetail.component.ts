@@ -21,7 +21,7 @@ export class DishdetailComponent implements OnInit {
   dishIds: number[];
   prev: number;
   next: number;
-  feedbackForm: FormGroup;
+  commentForm: FormGroup;
   isError = true;
   isSubmit = false;
   autoTicks = false;
@@ -36,8 +36,9 @@ export class DishdetailComponent implements OnInit {
   vertical = false;
   private _tickInterval = 1;
   date: string;
-  errMess: string;
-
+  errMess = '';
+  dishcopy = null;
+  comment: Comment;
 
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
@@ -48,10 +49,12 @@ export class DishdetailComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
+     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
+
     this.route.params
       .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); }, errmess => this.errMess = <any>errmess);
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },
+        errmess => { this.dish = null; this.errMess = <any>errmess; });
   }
   get tickInterval(): number | 'auto' {
     return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
@@ -66,12 +69,12 @@ export class DishdetailComponent implements OnInit {
     this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
   }
   createForm() {
-    this.feedbackForm = this.fb.group({
+    this.commentForm = this.fb.group({
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
       rating: [''],
       comment: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]]
     });
-    this.feedbackForm.valueChanges
+    this.commentForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
 
     this.onValueChanged();
@@ -85,15 +88,20 @@ export class DishdetailComponent implements OnInit {
   onSubmit() {
     const d = new Date();
     this.date = d.toISOString();
-    this.feedbackForm.value.date = this.date;
-    this.dish.comments.push(this.feedbackForm.value);
-    console.log(this.feedbackForm.value);
-    this.feedbackForm.reset({
+    this.commentForm.value.date = this.date;
+    this.comment = this.commentForm.value;
+    // this.dish.comments.push(this.commentForm.value);
+    this.dishcopy.comments.push(this.comment);
+    this.dishcopy.save()
+      .subscribe(dish => { this.dish = dish; console.log(this.dish); });
+    console.log(this.commentForm.value);
+    this.commentForm.reset({
       author: '',
       rating: '',
       comment: ''
 
     });
+
     this.isError = true;
     this.value = 5;
   }
@@ -115,8 +123,8 @@ export class DishdetailComponent implements OnInit {
 
 
   onValueChanged(data?: any) {
-    if (!this.feedbackForm) { return; }
-    const form = this.feedbackForm;
+    if (!this.commentForm) { return; }
+    const form = this.commentForm;
     const d = new Date();
     this.date = d.toISOString();
     // tslint:disable-next-line:forin

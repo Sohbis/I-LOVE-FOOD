@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RestangularModule, Restangular } from 'ngx-restangular';
 
 
 import 'hammerjs';
@@ -29,6 +30,8 @@ import { LoginComponent } from './login/login.component';
 import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 
 import { enterView } from '@angular/core/src/render3/instructions';
+import { RestangularConfigFactory } from './shared/restConfig';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +53,9 @@ import { enterView } from '@angular/core/src/render3/instructions';
     FlexLayoutModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
+
   ],
   entryComponents: [
     LoginComponent
