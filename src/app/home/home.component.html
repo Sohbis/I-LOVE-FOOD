@@ -1,7 +1,7 @@
 <div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.gt-md="space-around center"
   fxLayoutGap="10px">
 <md-card fxFlex>
-  <div *ngIf="dish">
+  <div *ngIf="dish" [@expand]>
     <md-card-header>
       <div md-card-avatar></div>
       <md-card-title>
@@ -28,7 +28,7 @@
         
 
   <md-card  fxFlex>
-    <div *ngIf="promotion">
+    <div *ngIf="promotion" [@expand]>
     <md-card-header>
       <div md-card-avatar></div>
       <md-card-title>
@@ -49,7 +49,7 @@
   </md-card>
 
     <md-card  fxFlex>
-      <div *ngIf="leader">
+      <div *ngIf="leader" [@expand]>
       <md-card-header>
         <div md-card-avatar></div>
         <md-card-title>

@@ -1,19 +1,24 @@
 import { Component, OnInit, Input, ViewEncapsulation, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Params, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
-import { Params, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { visibility, expand, flyInOut } from '../animations/app.animation';
+
 import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
   styleUrls: ['./dishdetail.component.css'],
-  encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  // encapsulation: ViewEncapsulation.None,
+  // preserveWhitespaces: false
+  animations: [
+    visibility(), expand()
+  ]
 })
 export class DishdetailComponent implements OnInit {
   // @Input()
@@ -39,6 +44,7 @@ export class DishdetailComponent implements OnInit {
   errMess = '';
   dishcopy = null;
   comment: Comment;
+  visibility = 'shown';
 
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
@@ -52,8 +58,8 @@ export class DishdetailComponent implements OnInit {
      this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
 
     this.route.params
-      .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },
+      .switchMap((params: Params) => { this.visibility = 'hidden'; return this.dishservice.getDish(+params['id']); })
+      .subscribe(dish => { this.visibility = 'shown'; this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },
         errmess => { this.dish = null; this.errMess = <any>errmess; });
   }
   get tickInterval(): number | 'auto' {

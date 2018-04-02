@@ -1,4 +1,4 @@
-<div class="container" fxLayout="column" fxLayoutGap="10px">
+<div class="container" fxLayout="column" fxLayoutGap="10px" >
 
   <div fxFlex>
     <div>
@@ -60,18 +60,24 @@
       <h2>Corporate Leadership</h2>
     </div>
     <div>
-      <md-list fxFlex>
+      <md-list fxFlex *ngIf='leader' [@expand]>
         <md-list-item *ngFor="let leader of leader">
           <div fxFlex=3>
             <img height="80px" style="border-radius:50%" src={{leader.image}}>
           </div>
           <div fxFlex=50>
+                       
             <p md-line>{{leader.name}}</p>
             <p md-line>{{leader.designation}}</p>
             <p md-line>{{leader.description}}</p>
           </div>
+
         </md-list-item>
       </md-list>
+      <div [hidden]="leader">
+        <md-spinner></md-spinner>
+        <h4>Loading . . . Please Wait</h4>
+      </div>
     </div>
   </div>
 </div>

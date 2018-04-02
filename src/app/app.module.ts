@@ -31,6 +31,7 @@ import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 
 import { enterView } from '@angular/core/src/render3/instructions';
 import { RestangularConfigFactory } from './shared/restConfig';
+import { HighlightDirective } from './directives/highlight.directive';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { RestangularConfigFactory } from './shared/restConfig';
     HomeComponent,
     ContactComponent,
     LoginComponent,
+    HighlightDirective,
   ],
   imports: [
     BrowserModule,
