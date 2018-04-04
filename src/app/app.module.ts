@@ -32,6 +32,7 @@ import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 import { enterView } from '@angular/core/src/render3/instructions';
 import { RestangularConfigFactory } from './shared/restConfig';
 import { HighlightDirective } from './directives/highlight.directive';
+import { FeedbackService } from './services/feedback.service';
 
 
 @NgModule({
@@ -62,7 +63,7 @@ import { HighlightDirective } from './directives/highlight.directive';
   entryComponents: [
     LoginComponent
   ],
-  providers: [DishService, PromotionService, LeaderService, ProcessHttpmsgService, { provide: 'BaseURL', useValue: baseURL } ],
+  providers: [DishService, PromotionService, LeaderService, FeedbackService, ProcessHttpmsgService, { provide: 'BaseURL', useValue: baseURL } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

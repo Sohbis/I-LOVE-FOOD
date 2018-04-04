@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+
+
 import { Feedback, ContactType } from '../shared/feedback';
 import { flyInOut, expand } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'app-contact',
@@ -22,8 +25,11 @@ export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
   feedback: Feedback;
   contactType = ContactType;
+  storeFeedback: Feedback;
+  isSubmitted: boolean;
+  fbID: number[];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private fbservice: FeedbackService) {
     this.createForm();
   }
 
@@ -78,8 +84,18 @@ export class ContactComponent implements OnInit {
 
 
   onSubmit() {
-    this.feedback = this.feedbackForm.value;
-    console.log(this.feedback);
+    this.isSubmitted = true;
+    this.fbservice.submitFeedBack(this.feedbackForm.value).subscribe
+    (fb => { this.feedback = fb;
+        console.log('this.fb' + this.feedback);
+        this.fbservice.getFeedBack(this.feedback.id).subscribe( feeds => {this.feedback = feeds;
+        this.isSubmitted = false; });
+
+      console.log('id--' + this.feedback.firstname + this.isSubmitted);
+      }
+      );
+
+
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',

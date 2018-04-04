@@ -1,4 +1,6 @@
 export class Feedback {
+  [x: string]: any;
+  id: number;
     firstname: string;
     lastname: string;
     telnum: number;

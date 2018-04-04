@@ -99,7 +99,7 @@ export class DishdetailComponent implements OnInit {
     // this.dish.comments.push(this.commentForm.value);
     this.dishcopy.comments.push(this.comment);
     this.dishcopy.save()
-      .subscribe(dish => { this.dish = dish; console.log(this.dish); });
+      .subscribe(dish => { this.dish = dish; console.log( 'this.dish' + this.dish); });
     console.log(this.commentForm.value);
     this.commentForm.reset({
       author: '',
