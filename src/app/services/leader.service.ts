@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Leader } from '../shared/leader';
 import { LEADER } from '../shared/leaders';
 import { Observable } from 'rxjs/Observable';
-import { baseURL } from '../shared/baseurl';
 
 import { RestangularModule, Restangular } from 'ngx-restangular';
 

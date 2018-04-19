@@ -20,7 +20,6 @@ import { FooterComponent } from './footer/footer.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
-import { baseURL } from './shared/baseurl';
 
 
 import { DishService } from './services/dish.service';
@@ -63,7 +62,7 @@ import { FeedbackService } from './services/feedback.service';
   entryComponents: [
     LoginComponent
   ],
-  providers: [DishService, PromotionService, LeaderService, FeedbackService, ProcessHttpmsgService, { provide: 'BaseURL', useValue: baseURL } ],
+  providers: [DishService, PromotionService, LeaderService, FeedbackService, ProcessHttpmsgService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

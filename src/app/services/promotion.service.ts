@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Promotion } from '../shared/promotion';
 import { PROMOTIONS } from '../shared/promotions';
 import { Observable } from 'rxjs/Observable';
-import { baseURL } from '../shared/baseurl';
 
 import { RestangularModule, Restangular } from 'ngx-restangular';
 

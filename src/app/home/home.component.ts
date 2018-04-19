@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   dishErrMess: string;
 
   constructor(private dishService: DishService,
-    private promotionservice: PromotionService, private leaderService: LeaderService, @Inject('BaseURL') private BaseURL) { }
+    private promotionservice: PromotionService, private leaderService: LeaderService) { }
 
   ngOnInit() {
     this.dishService.getFeaturedDish()
